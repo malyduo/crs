@@ -18,16 +18,17 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
 
 class Rezerwacja {
-    private $adapter;
+    protected $adapter;
+    protected $db;
     public function __construct() {
-        $this->adapter = new Database();
-        $this->adapter = $this->adapter->getConnection();
+        $this->db = new Database();
+        $this->adapter = $this->db->getConnection();
     }
 
     public function fetchAll(){
         //$data = $this->adapter->query("SELECT * from flota", Adapter::QUERY_MODE_EXECUTE);
         $adapter = $this->adapter;
-        $sql = new Sql($this->adapter);
+        $sql = new Sql($adapter);
         $select = $sql->select();
         $select->from('flota');
         $selectString = $sql->getSqlStringForSqlObject($select);
@@ -35,10 +36,17 @@ class Rezerwacja {
         return $data;
     }
     
-    public function dodajAction($data){
+    public function rezerwujAction($data){
         $adapter = $this->adapter;
-        $sql = new Sql($this->adapter);
-        $select = $sql->insert($data);
+        $sql = new Sql($adapter);
+        $insert = $sql->insert('rezerwacja');
+        $insert->values($data);
+        $statement = $sql->prepareStatementForSqlObject($insert);
+        $statement->execute();
+    }
+    
+    public function dodajAction($data){
+        
     }
     
     public function usunAction(){

@@ -17,10 +17,10 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
 
 class Database {
-    private $driver;
-    private $db;
-    private $username;
-    private $password;
+    protected $driver;
+    protected $db;
+    protected $username;
+    protected $password;
     
     
     
@@ -29,6 +29,7 @@ class Database {
         $this->db = "csr";
         $this->username = "root";
         $this->password = "";
+        $this->charset = "utf8";
     }
     
     public function getConnection(){
@@ -37,6 +38,7 @@ class Database {
             'db' => $this->db,
             'username' => $this->username,
             'password' => $this->password,
+            'charset' => $this->charset,
         );
         return $adapter = new Adapter($config);
     }

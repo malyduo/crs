@@ -22,6 +22,9 @@ class RezerwacjaController extends AbstractActionController {
     }
 
     public function rezerwujAction() {
+        //start sesji
+        session_start();
+        
         //wczytanie modeli
         //widok
         $view = new ViewModel();
@@ -33,6 +36,8 @@ class RezerwacjaController extends AbstractActionController {
         $request = new Request();
         $request = $this->getRequest();
 
+        
+        
         $params = $this->params()->fromQuery();
         $id = $params['id'];
         $krok = $params['krok'];
@@ -49,20 +54,37 @@ class RezerwacjaController extends AbstractActionController {
         }
         
         //sprawdza czy formularz rezerwacji jest wyslany
-        if ($request->isPost()) {
+        if ($request->isPost() && $krok == 'podsumowanie') {
             $klient = $this->params()->fromPost();
             $view->setVariable('klient', $klient);
-        } else {
-            return $view;
+            $_SESSION['klient'] = $klient;
+        } elseif(!empty($_SESSION['klient'])){
+            $view->setVariable('klient', $_SESSION['klient']);
         }
         
-//        if($krok == 'potwierdzenie'){
-//            $data = $klient;
-//            $data['id_flota'] = $samochodInfo['id'];
-//            $data['id_lokalizacja'] = 1;
+        //sprawdza czy potwierdzenie jest wyslane
+        if ($krok == 'potwierdzenie' && !empty($_SESSION['klient'])) {
+            
+            //przygotowanie danych do dodania
+            $data = array(
+                'id_flota' => $id,
+                'id_lokalizacja' => 1,
+                'imie' => $_SESSION['klient']['imie'],
+                'nazwisko' => $_SESSION['klient']['nazwisko'],
+                'telefon' => $_SESSION['klient']['telefon'],
+                'email' => $_SESSION['klient']['email'],
+                'ulica' => $_SESSION['klient']['ulica'],
+                'miejscowosc' => $_SESSION['klient']['miejscowosc'],
+                'kod_pocztowy' => $_SESSION['klient']['kod_pocztowy'],
+                'data_wypozyczenia' => $_SESSION['klient']['data_wypozyczenia'],
+                'data_zwrotu' => $_SESSION['klient']['data_zwrotu']
+            );
 //            var_dump($data);
-//            $modelRezerwacja->dodajAction($data);
-//        }
+            $modelRezerwacja->rezerwujAction($data);
+//            unset($_SESSION['klient']);
+//            echo 'DODANO';
+        }
+        
         
         //zwraca na widok
         return $view;

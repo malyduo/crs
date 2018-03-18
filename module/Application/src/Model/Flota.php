@@ -19,15 +19,16 @@ use Zend\Db\Sql\Sql;
 
 class Flota {
     private $adapter;
+    private $db;
     public function __construct() {
-        $this->adapter = new Database();
-        $this->adapter = $this->adapter->getConnection();
+        $this->db = new Database();
+        $this->adapter = $this->db->getConnection();
     }
 
     public function fetchAll(){
         //$data = $this->adapter->query("SELECT * from flota", Adapter::QUERY_MODE_EXECUTE);
         $adapter = $this->adapter;
-        $sql = new Sql($this->adapter);
+        $sql = new Sql($adapter);
         $select = $sql->select();
         $select->from('flota');
         $selectString = $sql->getSqlStringForSqlObject($select);
