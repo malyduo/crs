@@ -85,6 +85,8 @@ class RezerwacjaController extends AbstractActionController {
 //            echo 'DODANO';
         }
         
+        //definiuje tytuł strony
+        $this->layout()->setVariable('title', 'Rezerwacja samochodu');
         
         //zwraca na widok
         return $view;

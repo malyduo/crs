@@ -31,8 +31,13 @@ class FlotaController extends AbstractActionController
         //definiuje zmienne widoku
         $view->setVariable('results', $results);
         
+        //definiuje tytuł strony
+        $this->layout()->setVariable('title', 'Flota');
+        
         //zwraca na widok
         return $view;
+        
+        
     }
     
     public function dodajAction()
