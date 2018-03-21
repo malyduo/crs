@@ -78,9 +78,9 @@ return [
                 ],
             ],
             'flota' => [
-                'type'    => Segment::class,
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/flota[/:action]',
+                    'route'    => '/flota',
                     'defaults' => [
                         'controller' => Controller\FlotaController::class,
                         'action'     => 'index',

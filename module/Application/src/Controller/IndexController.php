@@ -9,11 +9,14 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Helper;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+       //$this->_helper->layout->setLayout('layout_1');
+       $this->layout()->setTemplate('layout/front-page');
        return new ViewModel();
     }
     

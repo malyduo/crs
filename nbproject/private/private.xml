@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/RezerwacjaSamochodow/module/Application/src/Controller/IndexController.php</file>
+            <file>file:/C:/xampp/htdocs/RezerwacjaSamochodow/module/Application/view/layout/layout.phtml</file>
+            <file>file:/C:/xampp/htdocs/RezerwacjaSamochodow/module/Application/view/application/flota/index.phtml</file>
+            <file>file:/C:/xampp/htdocs/RezerwacjaSamochodow/public/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/RezerwacjaSamochodow/module/Application/view/layout/front-page.phtml</file>
+        </group>
     </open-files>
 </project-private>

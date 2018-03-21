@@ -61,20 +61,48 @@
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->
         </nav>
-        <section class="page-intro">
+        <section class="intro">
             <div class="container content">
                 <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="page-intro-title">Tytuł</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="container content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <?= $this->content ?>
+                    <div class="col-md-6">
+                        <div class="search-box">
+                            <div class="search-body">
+                                <h3 class="title">Zarezerwuj samochód</h3>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="search">Miejsce odbioru</label>
+                                            <div id="custom-search-input">
+                                                <div class="input-group col-md-12">
+                                                    <input type="text" name="search" class="form-control input-lg" placeholder="Wpisz miejscowość lub nazwę..." />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-info btn-lg" type="button">
+                                                            <!--<i class="glyphicon glyphicon glyphicon-screenshot"></i>-->
+                                                            <i class="fas fa-crosshairs"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label for="ulica">Data odbioru</label>
+                                            <input type="date" class="form-control input-lg" id="telefon" placeholder="numer telefonu" name="telefon" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="miejscowosc">Data zwrotu</label>
+                                            <input type="date" class="form-control input-lg" id="email" placeholder="E-mail" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group"> 
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-search">WYSZUKAJ SAMOCHÓD</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,6 +119,7 @@
                 </div>
             </div>
         </section>
+        <?php //echo $this->content ?>
         
         <script>
             new WOW().init();
