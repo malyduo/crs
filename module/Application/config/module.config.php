@@ -78,12 +78,35 @@ return [
                 ],
             ],
             'flota' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/flota[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\FlotaController::class,
+                        'action'     => [
+                            'index',
+                            'szukaj'
+                        ],
+                    ],
+                ],
+            ],
+            'flota' => [
                 'type' => Literal::class,
                 'options' => [
                     'route'    => '/flota',
                     'defaults' => [
                         'controller' => Controller\FlotaController::class,
                         'action'     => 'index',
+                    ],
+                ],
+            ],
+            'flota' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/flota/szukaj',
+                    'defaults' => [
+                        'controller' => Controller\FlotaController::class,
+                        'action'     => 'szukaj',
                     ],
                 ],
             ],

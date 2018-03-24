@@ -19,7 +19,7 @@
                 ->prependFile($this->basePath('js/bootstrap.min.js'))
                 ->prependFile($this->basePath('js/jquery.min.js'))
         ?>
-        
+
         <!-- Le styles -->
         <?=
                 $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
@@ -54,7 +54,6 @@
                         <li class="active"><a href="<?= $this->url('home') ?>">Start
                             </a></li>
                         <li><a href="<?= $this->url('flota') ?>">Flota</a></li>
-                        <li><a href="<?= $this->url('rezerwacja') ?>">Rezerwacja</a></li>
                         <li><a href="<?= $this->url('regulamin') ?>">Regulamin</a></li>
                         <li><a href="<?= $this->url('kontakt') ?>">Kontakt</a></li>
                     </ul>
@@ -91,7 +90,7 @@
                 </div>
             </div>
         </section>
-        
+
         <script>
             new WOW().init();
         </script>
@@ -133,7 +132,7 @@
                 });
             });
         </script>
-        
+
         <?= $this->inlineScript() ?>
     </body>
 </html>

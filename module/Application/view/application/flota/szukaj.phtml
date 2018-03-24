@@ -1,0 +1,51 @@
+<div class="panel-group">
+    <?php
+    foreach ($results as $r) {
+        $id = $r->id;
+        $nazwa = $r->nazwa;
+        $grupa = $r->grupa;
+        $cena = $r->cena;
+        $opis = $r->opis;
+        $miejsca = $r->miejsca;
+        $bagaz = $r->bagaz;
+        $drzwi = $r->drzwi;
+        $skrzynia = $r->skrzynia;
+        $paliwo = $r->paliwo;
+        $klimatyzacja = $r->klimatyzacja;
+
+        if ($miejsca < 5) {
+            $miejsca_string = 'miejsca';
+        } else {
+            $miejsca_string = 'miejsc';
+        }
+        if ($klimatyzacja) {
+            $klimatyzacja = 'klimatyzacja';
+        }
+        echo '<div class="panel panel-default">';
+        echo '<div class="panel-body">';
+        echo '<div class="col-md-6"><img class="img-responsive" src="' . $this->basePath('img/flota/audi_a4.png') . '" /></div>';
+        echo '<div class="col-md-6">';
+        echo '<h2>' . $nazwa . '</h2>';
+        echo '<p>' . $opis . '</p>';
+        echo '<h3>Wyposażenie</h3>';
+        echo '<table class="table borderless">';
+        echo '<tr>';
+        echo '<td><img src="' . $this->basePath('img/group.png') . '" /> ' . $miejsca . ' ' . $miejsca_string . '</td>';
+        echo '<td><img src="' . $this->basePath('img/maintenance.png') . '" /> ' . $bagaz . '</td>';
+        echo '<td>' . $drzwi . ' drzwi</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td><img src="' . $this->basePath('img/gearshift.png') . '" /> ' . $skrzynia . '</td>';
+        echo '<td><img src="' . $this->basePath('img/dispenser.png') . '" /> ' . $paliwo . '</td>';
+        echo '<td><img src="' . $this->basePath('img/air-conditioning.png') . '" /> ' . $klimatyzacja . '</td>';
+        echo '</tr>';
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="panel-footer text-right">';
+        echo '<a href="rezerwacja/rezerwuj?id=' . $id . '&krok=rezerwacja" class="btn btn-reserve">rezerwuj teraz</a>';
+        echo '</div>';
+        echo '</div>';
+    }
+    ?>
+</div>

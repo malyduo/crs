@@ -126,6 +126,10 @@ body{
     font-size: 23px;
 }
 
+.search-box .form-control[disabled], .search-box .form-control[readonly], .search-box fieldset[disabled] .form-control {
+    cursor: pointer;
+}
+
 @media(min-width:768px) {
     .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
         background: transparent;
@@ -268,4 +272,7 @@ body{
 }
 .borderless td, .borderless th {
     border: none !important;
+}
+.panel-group .panel+.panel {
+    margin-top: 15px;
 }

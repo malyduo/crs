@@ -14,15 +14,19 @@
         <!-- Scripts -->
         <?=
                 $this->headScript()
+                ->prependFile($this->basePath('js/pl.js'))
+                ->prependFile($this->basePath('js/flatpickr.js'))
                 ->prependFile($this->basePath('js/totop.js'))
                 ->prependFile($this->basePath('js/wow.min.js'))
                 ->prependFile($this->basePath('js/bootstrap.min.js'))
                 ->prependFile($this->basePath('js/jquery.min.js'))
         ?>
-        
+
         <!-- Le styles -->
         <?=
                 $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+                ->prependStylesheet($this->basePath('css/airbnb.css'))
+                ->prependStylesheet($this->basePath('css/flatpickr.min.css'))
                 ->prependStylesheet($this->basePath('css/animate.css'))
                 ->prependStylesheet($this->basePath('css/style.css'))
                 ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
@@ -54,7 +58,6 @@
                         <li class="active"><a href="<?= $this->url('home') ?>">Start
                             </a></li>
                         <li><a href="<?= $this->url('flota') ?>">Flota</a></li>
-                        <li><a href="<?= $this->url('rezerwacja') ?>">Rezerwacja</a></li>
                         <li><a href="<?= $this->url('regulamin') ?>">Regulamin</a></li>
                         <li><a href="<?= $this->url('kontakt') ?>">Kontakt</a></li>
                     </ul>
@@ -65,44 +68,7 @@
             <div class="container content">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="search-box">
-                            <div class="search-body">
-                                <h3 class="title">Zarezerwuj samochód</h3>
-                                <form>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label for="search">Miejsce odbioru</label>
-                                            <div id="custom-search-input">
-                                                <div class="input-group col-md-12">
-                                                    <input type="text" name="search" class="form-control input-lg" placeholder="Wpisz miejscowość lub nazwę..." />
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-info btn-lg" type="button">
-                                                            <!--<i class="glyphicon glyphicon glyphicon-screenshot"></i>-->
-                                                            <i class="fas fa-crosshairs"></i>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-6">
-                                            <label for="ulica">Data odbioru</label>
-                                            <input type="date" class="form-control input-lg" id="telefon" placeholder="numer telefonu" name="telefon" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="miejscowosc">Data zwrotu</label>
-                                            <input type="date" class="form-control input-lg" id="email" placeholder="E-mail" name="email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group"> 
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-search">WYSZUKAJ SAMOCHÓD</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <?= $this->content ?>
                     </div>
                 </div>
             </div>
@@ -120,7 +86,7 @@
             </div>
         </section>
         <?php //echo $this->content ?>
-        
+
         <script>
             new WOW().init();
         </script>
@@ -150,6 +116,7 @@
         </script>
         <script type="text/javascript">
             $(document).ready(function () {
+                //navbar affix
                 var s = $(".navbar");
                 var pos = s.position();
                 $(window).scroll(function () {
@@ -162,7 +129,7 @@
                 });
             });
         </script>
-        
+
         <?= $this->inlineScript() ?>
     </body>
 </html>

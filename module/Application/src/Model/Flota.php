@@ -13,19 +13,22 @@
  */
 
 namespace Application\Model;
+
 use Application\Model\Database;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
 
 class Flota {
+
     private $adapter;
     private $db;
+
     public function __construct() {
         $this->db = new Database();
         $this->adapter = $this->db->getConnection();
     }
 
-    public function fetchAll(){
+    public function fetchAll() {
         //$data = $this->adapter->query("SELECT * from flota", Adapter::QUERY_MODE_EXECUTE);
         $adapter = $this->adapter;
         $sql = new Sql($adapter);
@@ -33,11 +36,11 @@ class Flota {
         $select->from('flota');
         $selectString = $sql->getSqlStringForSqlObject($select);
         $data = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE);
-        
+
         return $data;
     }
-    
-    public function sprawdzSamochod($id){
+
+    public function sprawdzSamochod($id) {
         $adapter = $this->adapter;
         $sql = new Sql($this->adapter);
         $select = $sql->select();
@@ -46,22 +49,42 @@ class Flota {
         $selectString = $sql->buildSqlString($select);
         $data = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE)->toArray();
         $data = array_shift($data);
-        if($data){
+        if ($data) {
             return $data;
         } else {
-           return false;
+            return false;
         }
     }
-    
-    public function dodajAction(){
+
+    public function dodajAction() {
         
     }
-    
-    public function usunAction(){
+
+    public function usunAction() {
         
     }
-    
-    public function szukajAction(){
-        
+
+    public function szukajAction($data_wypozyczenia, $data_zwrotu) {
+        $adapter = $this->adapter;
+        $sql = new Sql($this->adapter);
+        $select = $sql->select();
+        $select->from('flota');
+        $select->join(
+                'rezerwacja', 'flota.id = rezerwacja.id_flota', array(
+            'data_wypozyczenia',
+            'data_zwrotu'
+                )
+        );
+        $select->where('rezerwacja.data_wypozyczenia NOT BETWEEN \''.$data_wypozyczenia.'\' and \''.$data_zwrotu.'\'');
+        $select->where('rezerwacja.data_zwrotu NOT BETWEEN \''.$data_wypozyczenia.'\' and \''.$data_zwrotu.'\'');
+        $select->group('rezerwacja.id_flota');
+        $selectString = $sql->buildSqlString($select);
+        $data = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE);
+        if ($data) {
+            return $data;
+        } else {
+            return false;
+        }
     }
+
 }

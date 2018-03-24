@@ -16,6 +16,7 @@ use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
+use Zend\Http\Request;
 
 class FlotaController extends AbstractActionController
 {
@@ -33,6 +34,42 @@ class FlotaController extends AbstractActionController
         
         //definiuje tytuł strony
         $this->layout()->setVariable('title', 'Flota');
+        
+        //zwraca na widok
+        return $view;
+        
+        
+    }
+    
+    public function szukajAction()
+    {
+        //model widoku
+        $view = new ViewModel();
+        
+        //pobranie wszystkich wartosci z bazy flota
+        $modelFlota = new Flota();
+        
+        if (empty($_GET)) {
+            var_dump('error');
+        } else {
+//            var_dump($this->params()->fromQuery());
+            $params = $this->params()->fromQuery();
+            $data_wypozyczenia = $params['data_wypozyczenia'];
+            $data_zwrotu = $params['data_zwrotu'];
+            $results = $modelFlota->szukajAction($data_wypozyczenia, $data_zwrotu);
+            //definiuje zmienne widoku
+            $view->setVariable('results', $results);
+        }
+        
+        //pobranie wszystkich wartosci z bazy flota
+//        $modelFlota = new Flota();
+//        $results = $modelFlota->fetchAll();
+//        
+//        //definiuje zmienne widoku
+//        $view->setVariable('results', $results);
+        
+        //definiuje tytuł strony
+        $this->layout()->setVariable('title', 'Wyniki wyszukiwania');
         
         //zwraca na widok
         return $view;
