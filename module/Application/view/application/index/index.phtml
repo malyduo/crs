@@ -52,6 +52,7 @@
         $('#data_wypozyczenia').change(function () {
             var data_zwrotu_min = $(this).val();
             flatpickr('#data_zwrotu', {
+                "locale": "pl",
                 minDate: data_zwrotu_min
             });
         });
