@@ -129,7 +129,27 @@
                 });
             });
         </script>
+        <script>
+            $(document).ready(function () {
+                //datepicker
+                flatpickr('#data_wypozyczenia', {
+                    "locale": "pl",
+                    minDate: "today"
+                });
+                flatpickr('#data_zwrotu', {
+                    "locale": "pl",
+                    minDate: "today"
+                });
 
+                $('#data_wypozyczenia').change(function () {
+                    var data_zwrotu_min = $(this).val();
+                    flatpickr('#data_zwrotu', {
+                        "locale": "pl",
+                        minDate: data_zwrotu_min
+                    });
+                });
+            });
+        </script>
         <?= $this->inlineScript() ?>
     </body>
 </html>

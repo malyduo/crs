@@ -15,7 +15,7 @@ if ($krok == 'rezerwacja') {
     ?>
     <div class="row">
         <div class="col-md-12">
-            <h1>Rezerwacja samochodu</h1>
+            <h2><?php echo $nazwa; ?></h2>
             <?php
             echo $nazwa
             . '<br />'
@@ -24,75 +24,87 @@ if ($krok == 'rezerwacja') {
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <h2>Zarezerwuj</h2>
+        <div class="col-md-12 reservation-box">
             <form class="form-horizontal" action="rezerwuj?id=<?php echo $id; ?>&krok=podsumowanie" method="post">
-                <h3>Data rezerwacji</h3>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label for="data_wypozyczenia">Data wypożyczenia</label>
-                        <input type="date" class="form-control" id="data_wypozyczenia" name="data_wypozyczenia" required>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="title">Data rezerwacji</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label for="data_wypozyczenia">Data odbioru</label>
+                                    <input class="flatpickr flatpickr-input form-control input-lg" id="data_wypozyczenia"  placeholder="Wybierz datę" name="data_wypozyczenia" readonly="readonly">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="data_zwrotu">Data zwrotu</label>
+                                    <input class="flatpickr flatpickr-input form-control input-lg" id="data_zwrotu"  placeholder="Wybierz datę" name="data_zwrotu" readonly="readonly">
+                                </div>
+                                <div class="col-md-4 price">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="data_zwrotu">Data zwrotu</label>
-                        <input type="date" class="form-control" id="data_zwrotu" placeholder="Nazwisko" name="data_zwrotu" required>
-                    </div>
-                </div>
-                <h3>Dane rezerwującego</h3>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label for="imie">Imię</label>
-                        <input type="text" class="form-control" id="imie" placeholder="Imię" name="imie" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="nazwisko">Nazwisko</label>
-                        <input type="text" class="form-control" id="nazwisko" placeholder="Nazwisko" name="nazwisko" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label for="ulica">Telefon kontaktowy</label>
-                        <input type="text" class="form-control" id="telefon" placeholder="numer telefonu" name="telefon" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="miejscowosc">E-mail</label>
-                        <input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label for="ulica">Ulica, nr domu/lokalu</label>
-                        <input type="text" class="form-control" id="ulica" placeholder="Ulica, nr domu/lokalu" name="ulica" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="miejscowosc">Miejscowość</label>
-                        <input type="text" class="form-control" id="miejscowosc" placeholder="Miejscowość" name="miejscowosc" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="kod_pocztowy">Kod pocztowy</label>
-                        <input type="text" class="form-control" id="kod_pocztowy" placeholder="Kod pocztowy" name="kod_pocztowy" pattern="^\d{2}-\d{3}$" title="Format: XX-XXX" required>
-                    </div>
-                </div>
-                <div class="form-group">     
-                    <div class="col-sm-12">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck1" name="regulamin" required>
-                        <label class="form-check-label" for="defaultCheck1">
-                            Akceptuję regulamin wynajmu
-                        </label>
-                    </div>
-                    <div class="col-sm-12">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck2" name="warunki" required>
-                        <label class="form-check-label" for="defaultCheck2">
-                            Zapoznałem się z Ogólnymi Warunkami Wynajmu
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">     
-                    <div class="col-sm-4">
-                        <button type="back" class="btn btn-default">Powrót</button>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit" class="btn btn-success">Rezerwuj</button>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="title">Dane rezerwującego</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label for="imie">Imię</label>
+                                    <input type="text" class="form-control" id="imie" placeholder="Imię" name="imie" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nazwisko">Nazwisko</label>
+                                    <input type="text" class="form-control" id="nazwisko" placeholder="Nazwisko" name="nazwisko" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label for="ulica">Telefon kontaktowy</label>
+                                    <input type="text" class="form-control" id="telefon" placeholder="numer telefonu" name="telefon" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="miejscowosc">E-mail</label>
+                                    <input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label for="ulica">Ulica, nr domu/lokalu</label>
+                                    <input type="text" class="form-control" id="ulica" placeholder="Ulica, nr domu/lokalu" name="ulica" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="miejscowosc">Miejscowość</label>
+                                    <input type="text" class="form-control" id="miejscowosc" placeholder="Miejscowość" name="miejscowosc" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="kod_pocztowy">Kod pocztowy</label>
+                                    <input type="text" class="form-control" id="kod_pocztowy" placeholder="Kod pocztowy" name="kod_pocztowy" pattern="^\d{2}-\d{3}$" title="Format: XX-XXX" required>
+                                </div>
+                            </div>
+                            <div class="form-group privacy">     
+                                <div class="col-sm-12">
+                                    <input class="form-check-input" type="checkbox" id="defaultCheck1" name="regulamin" required>
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Akceptuję regulamin wynajmu
+                                    </label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input class="form-check-input" type="checkbox" id="defaultCheck2" name="warunki" required>
+                                    <label class="form-check-label" for="defaultCheck2">
+                                        Zapoznałem się z Ogólnymi Warunkami Wynajmu
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button type="back" class="btn btn-back pull-left">Powrót</button>
+                            <button type="submit" class="btn btn-reserve">rezerwuj teraz</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -140,5 +152,29 @@ if ($krok == 'rezerwacja') {
             <p><a href="rezerwuj?id=<?= $id ?>&krok=potwierdzenie" class="btn btn-success">Potwierdzam rezerwację</a></p>
         </div>
     </div>
-    <?php
-}?>
+<?php }
+?>
+
+<script>
+    $('#data_zwrotu').change(function () {
+        datediff();
+    });
+    function datediff() {
+        var d1 = $('#data_wypozyczenia').val();
+        var d2 = $('#data_zwrotu').val();
+
+        var date1 = new Date(d1);
+        var date2 = new Date(d2);
+
+        var date1_ms = date1.getTime();
+        var date2_ms = date2.getTime();
+
+        var diff = date2_ms-date1_ms;
+
+        // get days
+        var days = diff/1000/60/60/24;
+
+        $('.price').html(days*80);  
+    }
+    
+</script>
