@@ -56,7 +56,11 @@ class FlotaController extends AbstractActionController
             $params = $this->params()->fromQuery();
             $data_wypozyczenia = $params['data_wypozyczenia'];
             $data_zwrotu = $params['data_zwrotu'];
-            $results = $modelFlota->szukajAction($data_wypozyczenia, $data_zwrotu);
+            
+            //szuka id wolnych samochodow
+            $wolny_id = $modelFlota->szukajAction($data_wypozyczenia, $data_zwrotu);
+            
+            $results = $modelFlota->pobierzSamochodyById($wolny_id);
             //definiuje zmienne widoku
             $view->setVariable('results', $results);
         }

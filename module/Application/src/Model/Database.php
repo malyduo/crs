@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of Flota
+ * Description of Database
  *
  * @author Konrad
  */

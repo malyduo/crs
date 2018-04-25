@@ -12,6 +12,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Flota;
 use Application\Model\Rezerwacja;
+use Application\Model\Lokalizacja;
 use Zend\Http\Request;
 
 class RezerwacjaController extends AbstractActionController {
@@ -26,12 +27,11 @@ class RezerwacjaController extends AbstractActionController {
         session_start();
         
         //wczytanie modeli
-        //widok
         $view = new ViewModel();
-        //flota
         $modelFlota = new Flota();
-        //rezerwacja
         $modelRezerwacja = new Rezerwacja();
+        $modelLokalizacja = new Lokalizacja();
+        
         //request
         $request = new Request();
         $request = $this->getRequest();
@@ -49,6 +49,9 @@ class RezerwacjaController extends AbstractActionController {
         //definiuje zmienne widoku
         if ($samochodInfo) {
             $view->setVariable('samochodInfo', $samochodInfo);
+            //lista lokalizacji
+            $lokalizacja = $modelLokalizacja->fetchAll();
+            $view->setVariable('lokalizacja', $lokalizacja);
         } else {
             die();
         }
@@ -81,8 +84,8 @@ class RezerwacjaController extends AbstractActionController {
             );
 //            var_dump($data);
             $modelRezerwacja->rezerwujAction($data);
-//            unset($_SESSION['klient']);
-//            echo 'DODANO';
+            unset($_SESSION['klient']);
+//            echo 'SUKCES';
         }
         
         //definiuje tytuł strony

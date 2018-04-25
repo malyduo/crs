@@ -35,14 +35,48 @@ if ($krok == 'rezerwacja') {
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="data_wypozyczenia">Data odbioru</label>
-                                    <input class="flatpickr flatpickr-input form-control input-lg" id="data_wypozyczenia"  placeholder="Wybierz datę" name="data_wypozyczenia" readonly="readonly">
+                                    <input class="flatpickr flatpickr-input form-control input-lg" id="data_wypozyczenia"  placeholder="Wybierz datę" name="data_wypozyczenia" readonly="readonly" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="data_zwrotu">Data zwrotu</label>
-                                    <input class="flatpickr flatpickr-input form-control input-lg" id="data_zwrotu"  placeholder="Wybierz datę" name="data_zwrotu" readonly="readonly">
+                                    <input class="flatpickr flatpickr-input form-control input-lg" id="data_zwrotu"  placeholder="Wybierz datę" name="data_zwrotu" readonly="readonly" required>
                                 </div>
-                                <div class="col-md-4 price">
-
+                                <div class="col-md-4 text-center price">
+                                    <h3 class="price-title"></h3>
+                                    <p class="price-value"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="title">Miejsce rezerwacji</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="miejsce_wypozyczenia">Miejsce odbioru</label>
+                                    <select class="form-control" id="miejsce_wypozyczenia">
+                                        <option disabled selected>Wybierz miejsce odbioru...</option>
+                                        <?php
+                                        foreach ($lokalizacja as $lok) {
+                                            echo '<option value="' . $lok['id'] . '" lat="' . $lok['x'] . '" lng="' . $lok['y'] . '">' . $lok['miasto'] . ', ul.' . $lok['ulica'] . ' (' . $lok['nazwa'] . ')</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <div id="mapa_odbioru" class="reservation-map hidden"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="miejsce_zwrotu">Miejsce zwrotu</label>
+                                    <select class="form-control" id="miejsce_zwrotu">
+                                        <option disabled selected>Wybierz miejsce zwrotu...</option>
+                                        <?php
+                                        foreach ($lokalizacja as $lok) {
+                                            echo '<option value="' . $lok['id'] . '" lat="' . $lok['x'] . '" lng="' . $lok['y'] . '">' . $lok['miasto'] . ', ul.' . $lok['ulica'] . ' (' . $lok['nazwa'] . ')</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <div id="mapa_zwrotu" class="reservation-map hidden"></div>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +99,7 @@ if ($krok == 'rezerwacja') {
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="ulica">Telefon kontaktowy</label>
-                                    <input type="text" class="form-control" id="telefon" placeholder="numer telefonu" name="telefon" required>
+                                    <input type="text" class="form-control" id="telefon" placeholder="Numer telefonu" name="telefon" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="miejscowosc">E-mail</label>
@@ -155,6 +189,57 @@ if ($krok == 'rezerwacja') {
 <?php }
 ?>
 
+<!--mapa-->
+<script>
+    $('#miejsce_wypozyczenia').change(function () {
+        if ($(this).val().length > 0) {
+            //pobranie danych z listy
+            var lat = $(this).find('option:selected').attr('lat');
+            var lng = $(this).find('option:selected').attr('lng');
+            lat = parseFloat(lat);
+            lng = parseFloat(lng);
+            initMapaOdbioru(lat, lng);
+            $('#mapa_odbioru').removeClass('hidden');
+        }
+    });
+    $('#miejsce_zwrotu').change(function () {
+        var lat = $(this).find('option:selected').attr('lat');
+        var lng = $(this).find('option:selected').attr('lng');
+        lat = parseFloat(lat);
+        lng = parseFloat(lng);
+        initMapaZwrotu(lat, lng);
+        if ($(this).val().length > 0) {
+            $('#mapa_zwrotu').removeClass('hidden');
+        }
+    });
+    function initMapaOdbioru(lat, lng) {
+        var myLatLng = {lat: lat, lng: lng};
+        // Create a map object and specify the DOM element for display.
+        var mapa_odbioru = new google.maps.Map(document.getElementById('mapa_odbioru'), {
+            center: myLatLng,
+            zoom: 14
+        });
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: mapa_odbioru
+        });
+    }
+
+    function initMapaZwrotu(lat, lng) {
+        var myLatLng = {lat: lat, lng: lng};
+        // Create a map object and specify the DOM element for display.
+        var mapa_zwrotu = new google.maps.Map(document.getElementById('mapa_zwrotu'), {
+            center: myLatLng,
+            zoom: 14
+        });
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: mapa_zwrotu
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvxwbCITaRpg6vTdEZKTnGH28kkuUcvAM" async defer></script>
+<!--obliczanie ceny-->
 <script>
     $('#data_zwrotu').change(function () {
         datediff();
@@ -169,12 +254,13 @@ if ($krok == 'rezerwacja') {
         var date1_ms = date1.getTime();
         var date2_ms = date2.getTime();
 
-        var diff = date2_ms-date1_ms;
+        var diff = date2_ms - date1_ms;
 
         // get days
-        var days = diff/1000/60/60/24;
+        var days = diff / 1000 / 60 / 60 / 24;
 
-        $('.price').html(days*80);  
+        $('.price-title').html('Cena: ' + days * 80 + 'zł');
+//        $('.price-value').html(days * 80);
     }
-    
+
 </script>

@@ -1,17 +1,17 @@
 <div class="panel-group">
     <?php
     foreach ($results as $r) {
-        $id = $r->id;
-        $nazwa = $r->nazwa;
-        $grupa = $r->grupa;
-        $cena = $r->cena;
-        $opis = $r->opis;
-        $miejsca = $r->miejsca;
-        $bagaz = $r->bagaz;
-        $drzwi = $r->drzwi;
-        $skrzynia = $r->skrzynia;
-        $paliwo = $r->paliwo;
-        $klimatyzacja = $r->klimatyzacja;
+        $id = $r['id'];
+        $nazwa = $r['nazwa'];
+        $grupa = $r['grupa'];
+        $cena = $r['cena'];
+        $opis = $r['opis'];
+        $miejsca = $r['miejsca'];
+        $bagaz = $r['bagaz'];
+        $drzwi = $r['drzwi'];
+        $skrzynia = $r['skrzynia'];
+        $paliwo = $r['paliwo'];
+        $klimatyzacja = $r['paliwo'];
 
         if ($miejsca < 5) {
             $miejsca_string = 'miejsca';

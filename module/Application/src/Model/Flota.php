@@ -40,6 +40,23 @@ class Flota {
         return $data;
     }
 
+    public function pobierzSamochodyById($array_id) {
+        foreach ($array_id as $id) {
+            $adapter = $this->adapter;
+            $sql = new Sql($this->adapter);
+            $select = $sql->select();
+            $select->from('flota');
+            $select->where(array('id' => $id));
+            $selectString = $sql->buildSqlString($select);
+            $data = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE)->toArray();
+        }
+        if ($data) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
     public function sprawdzSamochod($id) {
         $adapter = $this->adapter;
         $sql = new Sql($this->adapter);
@@ -67,21 +84,20 @@ class Flota {
     public function szukajAction($data_wypozyczenia, $data_zwrotu) {
         $adapter = $this->adapter;
         $sql = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->from('flota');
-        $select->join(
-                'rezerwacja', 'flota.id = rezerwacja.id_flota', array(
-            'data_wypozyczenia',
-            'data_zwrotu'
-                )
-        );
-        $select->where('rezerwacja.data_wypozyczenia NOT BETWEEN \''.$data_wypozyczenia.'\' and \''.$data_zwrotu.'\'');
-        $select->where('rezerwacja.data_zwrotu NOT BETWEEN \''.$data_wypozyczenia.'\' and \''.$data_zwrotu.'\'');
-        $select->group('rezerwacja.id_flota');
+        $select = $sql->select()->columns(array('id_flota'));
+        $select->from('rezerwacja');
+        $select->where('data_wypozyczenia NOT BETWEEN \'' . $data_wypozyczenia . '\' and \'' . $data_zwrotu . '\'');
+        $select->where('data_zwrotu NOT BETWEEN \'' . $data_wypozyczenia . '\' and \'' . $data_zwrotu . '\'');
+        $select->group('id_flota');
         $selectString = $sql->buildSqlString($select);
-        $data = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE);
+        $data = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE)->toArray();
+        $rezerwacje = [];
+        foreach ($data as $key => $value) {
+            array_push($rezerwacje, $value['id_flota']);
+        };
+
         if ($data) {
-            return $data;
+            return $rezerwacje;
         } else {
             return false;
         }

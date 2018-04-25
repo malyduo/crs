@@ -141,18 +141,21 @@
                 //datepicker
                 flatpickr('#data_wypozyczenia', {
                     "locale": "pl",
-                    minDate: "today"
+                    minDate: "today",
+                    disable: ["today"]
                 });
+                
                 flatpickr('#data_zwrotu', {
                     "locale": "pl",
-                    minDate: "today"
+                    minDate: "today",
+                    disable: ["today"]
                 });
-
                 $('#data_wypozyczenia').change(function () {
                     var data_zwrotu_min = $(this).val();
                     flatpickr('#data_zwrotu', {
                         "locale": "pl",
-                        minDate: data_zwrotu_min
+                        minDate: data_zwrotu_min,
+                        disable: [data_zwrotu_min]
                     });
                 });
             });
